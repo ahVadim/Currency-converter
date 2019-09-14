@@ -10,6 +10,11 @@ import kotlinx.coroutines.*
 class MainPresenter : MvpPresenter<MainView>(), CoroutineScope by MainScope() {
 
     private val interactor = Interactor()
+    private var convertJob: Job? = null
+
+    private var fromCurrency = ""
+    private var toCurrency = ""
+    private var value: Double? = null
 
     fun initData() {
         launch {
@@ -19,8 +24,32 @@ class MainPresenter : MvpPresenter<MainView>(), CoroutineScope by MainScope() {
         }
     }
 
+    private fun convert() {
+        convertJob?.cancel()
+        convertJob = launch {
+            viewState.setResultLoading()
+            val result = interactor.convert(value, fromCurrency, toCurrency)
+            viewState.setResult(result?.toString() ?: "")
+        }
+    }
+
     override fun onDestroy() {
         cancel()
+    }
+
+    fun updateFromCurrency(fromCurrency: String?) {
+        this.fromCurrency = fromCurrency ?: ""
+        convert()
+    }
+
+    fun updateToCurrency(toCurrency: String?) {
+        this.toCurrency = toCurrency ?: ""
+        convert()
+    }
+
+    fun updateValue(value: String) {
+        this.value = value.toDoubleOrNull()
+        convert()
     }
 
 }

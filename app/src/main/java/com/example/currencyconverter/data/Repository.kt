@@ -9,4 +9,11 @@ class Repository {
             .getSupportedCurrencies()
             .currencies.values.toList()
     }
+
+    suspend fun getConversionCoefficient(from: String, to: String): Double? {
+        val pair = from + "_" + to
+        return NetworkClient.api
+            .convert(from + "_" + to)
+            .get(pair)
+    }
 }

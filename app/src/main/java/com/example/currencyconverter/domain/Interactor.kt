@@ -8,7 +8,13 @@ class Interactor {
 
     private val repository = Repository()
 
-    suspend fun getAllCurrencies() = withContext(Dispatchers.IO){
+    suspend fun getAllCurrencies() = withContext(Dispatchers.IO) {
         repository.getCurrencies()
+    }
+
+    suspend fun convert(value: Double?, from: String, to: String): Double? {
+        return if (value != null) {
+            repository.getConversionCoefficient(from, to)?.times(value)
+        } else null
     }
 }

@@ -17,7 +17,7 @@
         android:id="@+id/main_screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_36">
+        android:layout_marginTop="@dimen/margin_24">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/from_value_edit_text"
