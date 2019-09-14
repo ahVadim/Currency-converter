@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Currency converter</string>
+    <string name="main_screen_et_hint">Введите значение</string>
+    <string name="result_header">Результат:</string>
 </resources>

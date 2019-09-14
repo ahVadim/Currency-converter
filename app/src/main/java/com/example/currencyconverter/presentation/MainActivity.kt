@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.example.currencyconverter.R
+import com.example.currencyconverter.utils.setGone
+import com.example.currencyconverter.utils.setVisible
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
@@ -23,30 +27,34 @@ class MainActivity : AppCompatActivity(), MainView {
 
         fromDropDownAdapter = createSpinnerAdapter()
         toDropDownAdapter = createSpinnerAdapter()
-        spinner_from.adapter = fromDropDownAdapter
-    }
-
-
-
-    val handler = CoroutineExceptionHandler { _, e ->
-        Log.e("http: ", e.toString())
+        from_currency_spinner.adapter = fromDropDownAdapter
+        to_currency_spinner.adapter = fromDropDownAdapter
     }
 
     override fun onStart() {
         super.onStart()
-        button.setOnClickListener {
-            presenter.initData()
-        }
+        presenter.initData()
+    }
+
+    override fun setLoading() {
+        progress.setVisible()
+        main_screen.setGone()
     }
 
     override fun setCurrencies(names: List<String>) {
+
+        progress.setGone()
+        main_screen.setVisible()
+
         fromDropDownAdapter.clear()
         fromDropDownAdapter.addAll(names)
+        toDropDownAdapter.clear()
+        toDropDownAdapter.addAll(names)
     }
 
     private fun createSpinnerAdapter() = ArrayAdapter<String>(
         this,
-        android.R.layout.simple_spinner_item,
+        R.layout.custom_spinner_item,
         arrayListOf<String>()
     ).apply {
         setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

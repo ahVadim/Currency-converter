@@ -13,6 +13,7 @@ class MainPresenter : MvpPresenter<MainView>(), CoroutineScope by MainScope() {
 
     fun initData() {
         launch {
+            viewState.setLoading()
             val currencies = interactor.getAllCurrencies()
             viewState.setCurrencies(currencies.map { it.id })
         }
