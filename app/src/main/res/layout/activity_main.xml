@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -102,7 +103,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appCompatImageView" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/result_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,6 +115,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/result_header"
             tools:text="34" />
+
+        <ProgressBar
+            android:id="@+id/result_progress"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/result_value"
+            app:layout_constraintStart_toEndOf="@id/result_value"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

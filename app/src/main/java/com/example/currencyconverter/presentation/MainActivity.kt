@@ -13,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import com.example.currencyconverter.R
 import com.example.currencyconverter.utils.setGone
 import com.example.currencyconverter.utils.setVisible
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
@@ -86,6 +87,13 @@ class MainActivity : AppCompatActivity(), MainView {
         main_screen.setGone()
     }
 
+    override fun showError(text: String) {
+        Snackbar.make(root_view, text, Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.repeat) {
+                presenter.initData()
+            }.show()
+    }
+
     override fun setCurrencies(names: List<String>) {
 
         progress.setGone()
@@ -96,10 +104,12 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun setResultLoading() {
+        result_progress.setVisible()
         result_value.alpha = 0.5f
     }
 
     override fun setResult(text: String) {
+        result_progress.setGone()
         result_value.alpha = 1f
         result_value.text = text
     }
