@@ -14,9 +14,11 @@ import java.net.UnknownHostException
 
 @ExperimentalCoroutinesApi
 @InjectViewState
-class MainPresenter(private val interactor: Interactor) : MvpPresenter<MainView>(), CoroutineScope by MainScope() {
+class MainPresenter(private val interactor: Interactor) : MvpPresenter<MainView>(),
+    CoroutineScope by MainScope() {
 
     private var convertJob: Job? = null
+
     private val errorHandler = CoroutineExceptionHandler { _, throwable ->
         (throwable as? HttpException)?.response()?.errorBody()?.string()?.let {
             try {
@@ -28,7 +30,8 @@ class MainPresenter(private val interactor: Interactor) : MvpPresenter<MainView>
         }
 
         if (throwable is SocketTimeoutException ||
-                throwable is UnknownHostException) viewState.showError("Нет соединеня с интернетом")
+            throwable is UnknownHostException
+        ) viewState.showError("Нет соединеня с интернетом")
     }
 
     private var fromCurrency = ""

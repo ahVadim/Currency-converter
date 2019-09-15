@@ -1,14 +1,9 @@
 package com.example.currencyconverter.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter

@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NetworkClient(private val context: Context) {
+class NetworkClient(context: Context) {
 
     val cacheSize = (5 * 1024 * 1024).toLong() //5 MB
     val myCache = Cache(context.cacheDir, cacheSize)
