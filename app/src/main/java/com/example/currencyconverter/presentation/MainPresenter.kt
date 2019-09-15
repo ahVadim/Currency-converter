@@ -3,19 +3,19 @@ package com.example.currencyconverter.presentation
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.currencyconverter.domain.Interactor
+import com.example.currencyconverter.domain.InteractorImpl
 import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable.cancel
 import org.json.JSONObject
 import retrofit2.HttpException
-import retrofit2.Retrofit
 import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 @ExperimentalCoroutinesApi
 @InjectViewState
-class MainPresenter : MvpPresenter<MainView>(), CoroutineScope by MainScope() {
+class MainPresenter(private val interactor: Interactor) : MvpPresenter<MainView>(), CoroutineScope by MainScope() {
 
-    private val interactor = Interactor()
     private var convertJob: Job? = null
     private val errorHandler = CoroutineExceptionHandler { _, throwable ->
         (throwable as? HttpException)?.response()?.errorBody()?.string()?.let {

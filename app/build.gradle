@@ -45,7 +45,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
 
 
-    kapt 'com.arello-mobile:moxy-compiler:1.5.5'
-    implementation 'com.arello-mobile:moxy:1.5.5'
-    implementation 'com.arello-mobile:moxy-app-compat:1.5.5'
+    kapt 'tech.schoolhelper:moxy-x-compiler:1.7.0'
+    implementation 'tech.schoolhelper:moxy-x:1.7.0'
+    implementation 'tech.schoolhelper:moxy-x-androidx:1.7.0'
+
+    implementation 'org.koin:koin-android:2.0.1'
+
 }

@@ -10,27 +10,39 @@ import android.widget.EditText
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.currencyconverter.R
 import com.example.currencyconverter.utils.setGone
 import com.example.currencyconverter.utils.setVisible
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 
 @ExperimentalCoroutinesApi
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val presenter = MainPresenter()
+    @InjectPresenter
+    lateinit var presenter: MainPresenter
+
+    @ProvidePresenter
+    fun provide(): MainPresenter {
+        val mainPresenter: MainPresenter by inject()
+        return mainPresenter
+    }
 
     lateinit var fromDropDownAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.attachView(this)
         setContentView(R.layout.activity_main)
 
         setupSpinners()
         setupEditText()
+
+        if (savedInstanceState == null) presenter.initData()
     }
 
     private fun setupSpinners() {
@@ -75,11 +87,6 @@ class MainActivity : AppCompatActivity(), MainView {
         from_value_edit_text.addTextChangedListener(onTextChanged = { text, _, _, _ ->
             presenter.updateValue(text.toString())
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        presenter.initData()
     }
 
     override fun setLoading() {
