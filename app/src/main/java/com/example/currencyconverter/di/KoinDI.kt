@@ -13,5 +13,5 @@ val appModule = module {
     factory { RepositoryImpl(get()) as Repository }
     factory { InteractorImpl(get()) as Interactor }
     factory { MainPresenter(get()) }
-    single { NetworkClient() }
+    single { NetworkClient(get()) }
 }
